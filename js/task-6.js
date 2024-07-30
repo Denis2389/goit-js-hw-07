@@ -4,40 +4,47 @@ function getRandomHexColor() {
     .padStart(6, 0)}`;
 }
 
-        const inputElement = document.querySelector('#controls input');
-        const createButton = document.querySelector('button[data-create]');
-        const destroyButton = document.querySelector('button[data-destroy]');
-        const boxesContainer = document.getElementById('boxes');
+const inputElement = document.querySelector('#controls input');
+const createButton = document.querySelector('button[data-create]');
+const destroyButton = document.querySelector('button[data-destroy]');
+const boxesContainer = document.getElementById('boxes');
 
-        function createBoxes(amount) {
-            boxesContainer.innerHTML = '';
+function createBoxes(amount) {
+    boxesContainer.innerHTML = '';
 
-            let size = 30;
+    let size = 30;
+    const fragment = document.createDocumentFragment();
 
-            for (let i = 0; i < amount; i++) {
-                const box = document.createElement('div');
-                box.style.width = `${size}px`;
-                box.style.height = `${size}px`;
-                box.style.backgroundColor = getRandomHexColor();
-                boxesContainer.appendChild(box);
+    for (let i = 0; i < amount; i++) {
+        const box = document.createElement('div');
+        box.style.width = `${size}px`;
+        box.style.height = `${size}px`;
+        box.style.backgroundColor = getRandomHexColor();
+        fragment.appendChild(box);
 
-                size += 10;
-            }
-        }
+        size += 10;
+    }
 
-        function destroyBoxes() {
-            boxesContainer.innerHTML = '';
-        }
+    boxesContainer.appendChild(fragment);
+}
 
-        createButton.addEventListener('click', () => {
-            const amount = Number(inputElement.value);
+function destroyBoxes() {
+    boxesContainer.innerHTML = '';
+}
 
-            if (amount >= 1 && amount <= 100) {
-                createBoxes(amount);
-                inputElement.value = '';
-            } else {
-                alert('Please enter a number between 1 and 100');
-            }
-        });
+createButton.addEventListener('click', () => {
+    const amount = Number(inputElement.value);
 
-        destroyButton.addEventListener('click', destroyBoxes);
+    if (amount >= 1 && amount <= 100) {
+        createBoxes(amount);
+        inputElement.value = '';
+    } else {
+        alert('Please enter a number between 1 and 100');
+    }
+});
+
+destroyButton.addEventListener('click', destroyBoxes);
+
+
+
+
